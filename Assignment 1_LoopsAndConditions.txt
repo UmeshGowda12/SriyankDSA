@@ -1,0 +1,14 @@
+Input a number and print all the factors of that number (use loops).
+Take integer inputs till the user enters 0 and print the sum of all numbers (use loops)
+Take integer inputs till the user enters 0 and print the largest number from all.
+Calculate Avg of N numbers ( 1 to num, where num is user input)
+Calculate Sum of N numbers ( 1 to num, where num is user input)
+Check if number is a palindrome
+Check if number is a armstrong number
+HCF of two numbers
+LCM of two numbers 
+Check if year is leap of not
+Find sum of digits of number
+Check if number is a perfect number or not
+Sriyank is allowed to go out with his friends only on the even days of a given month. Write a program to count the number of days he can go out in the month of August.
+Write a program to print the sum of negative numbers, sum of positive even numbers and the sum of positive odd numbers from a list of numbers (N) entered by the user. The list terminates when the user enters a zero.
