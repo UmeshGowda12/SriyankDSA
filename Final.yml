@@ -1,0 +1,50 @@
+import yaml
+
+# YAML content stored in the variable
+yaml_from_variable = """
+receiver_yaml:
+- name: osprey-dev-alerts-default
+  slack_configs:
+  - api_url: $NURL_DEFAULT_SLACK_CHANNEL
+    channel: '#0sprey-alerts'
+    send_resolved: true
+    text: "{{ range .Alerts }} *Alert:* {{ .Annotations.title }}{{ if .Labels.severity }} - {{ .Labels.severity }}{{ end }} *Summary:* {{ .Annotations.summary }} *Description:* {{ .Annotations.description }} *Details:*\n  {{ range .Labels.SortedPairs }} \u2022 *{{ .Name }}:* {{ .Value }}\n  {{ end }}\n{{ end }}"
+    title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}'
+- name: OSSTIP Webhook
+  webhook_configs:
+  - extensions:
+      headers:
+      - name: Authorization
+        value: REDACTED
+      - name: TIP-Instance
+        value: staging
+      - name: X-Account-Id
+        value: 2c4a1985f9d5c10bd4842d2d3Test989088e
+      - name: Alert-CName
+        value: staging
+    http_config:
+      basic_auth:
+        passwrd: Test
+        username: apikey
+    send_resolved: true
+    url: $NURL_OSSTIP_WEBHOOK_URL
+"""
+
+# Read the YAML content from a file (example file path: 'file.yaml')
+with open('global_config.yml', 'r') as file:
+    yaml_from_file = yaml.safe_load(file)
+
+# Convert the variable YAML string into a Python object (dictionary)
+yaml_from_variable_dict = yaml.safe_load(yaml_from_variable)
+
+# Convert both to lists and merge them: first the variable content, then the file content
+merged_yaml = [yaml_from_variable_dict] + [yaml_from_file]
+
+# Convert the merged YAML into a string
+merged_yaml_string = yaml.dump(merged_yaml, default_flow_style=False)
+
+# Store the merged YAML in a variable as a string
+merged_yaml_variable = merged_yaml_string
+
+# Optional: Print the merged YAML content as a string
+print(merged_yaml_variable)
